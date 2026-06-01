@@ -703,4 +703,103 @@
     <div class="tl-item">
       <div class="tl-year">1888–89</div>
       <div class="tl-title">アルル ── 黄色い家と向日葵</div>
-      <div class="tl-desc">「芸術家の共同体」を夢見て南フランスへ
+      <div class="tl-desc">「芸術家の共同体」を夢見て南フランスへ。ひまわりの黄色が燃える。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1889</div>
+      <div class="tl-title">『星月夜』誕生</div>
+      <div class="tl-desc">サン＝レミの療養所の窓から見た夜空。渦巻く宇宙の完成。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">1890</div>
+      <div class="tl-title">37歳で逝く</div>
+      <div class="tl-desc">オーヴェル＝シュル＝オワーズにて。残した作品は900点以上。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Starry Obsession</div>
+  <p>
+    ゴッホへの愛を語る個人ファンサイト。<br>
+    <a href="blog.html">Blog</a> &ensp;/&ensp;
+    <a href="gallery.html">Gallery</a> &ensp;/&ensp;
+    <a href="about.html">About</a>
+  </p>
+  <p style="margin-top:1rem;">
+    ※ このサイトはファンによる非公式サイトです。ゴッホの作品は著作権保護期間を終了しています。
+  </p>
+</footer>
+
+<script>
+  /* ── SWIRL CANVAS ANIMATION ── */
+  const canvas = document.getElementById('swirl-bg');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function drawSwirl() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const cx = canvas.width, cy = canvas.height;
+
+    for (let i = 0; i < 7; i++) {
+      ctx.beginPath();
+      const offX = Math.sin(t * 0.4 + i * 1.1) * cx * 0.3;
+      const offY = Math.cos(t * 0.3 + i * 0.9) * cy * 0.3;
+      for (let a = 0; a < Math.PI * 10; a += 0.05) {
+        const r = a * 28 + i * 15;
+        const x = cx * 0.5 + offX * 0.4 + Math.cos(a + t * 0.2 + i) * r * 0.6;
+        const y = cy * 0.4 + offY * 0.4 + Math.sin(a + t * 0.15 + i) * r * 0.4;
+        if (a === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = i % 2 === 0
+        ? `rgba(245,197,24,${0.12 - i * 0.012})`
+        : `rgba(100,130,255,${0.08 - i * 0.008})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    t += 0.008;
+    requestAnimationFrame(drawSwirl);
+  }
+  drawSwirl();
+
+  /* ── STARS ── */
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      --dur: ${Math.random() * 4 + 2}s;
+      --op: ${Math.random() * 0.6 + 0.3};
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
