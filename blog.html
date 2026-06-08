@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Starry Obsession</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #000066;
+      --yellow: #f5c518;
+      --yellow-warm: #f0a500;
+      --yellow-pale: #fff3a0;
+      --cream: #fffde7;
+      --text-light: #e8e0c8;
+      --text-dim: #a09070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text-light);
+      font-family: 'Noto Serif JP', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, rgba(0,0,80,0.97), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--yellow);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--yellow); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .page-header p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
+    }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      margin: 0.5rem 0 3rem;
+      opacity: 0.3;
+    }
+
+    .divider svg { width: 320px; }
+
+    /* ENTRIES */
+    .entries {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 0 1.5rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid rgba(245,197,24,0.1);
+      align-items: baseline;
+    }
+
+    .entry:last-child { border-bottom: none; }
+
+    .entry-date {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--yellow-warm);
+      padding-top: 0.1rem;
+      white-space: nowrap;
+    }
+
+    .entry-text {
+      font-size: 0.93rem;
+      line-height: 1.85;
+      color: var(--text-light);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(245,197,24,0.12);
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: var(--yellow); }
+
+    @media (max-width: 520px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .entry { grid-template-columns: 1fr; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Starry Obsession</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p>DIARY</p>
+  <h1>Blog</h1>
+</div>
+
+<div class="divider">
+  <svg viewBox="0 0 320 10" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="5" x2="140" y2="5" stroke="#f5c518" stroke-width="1"/>
+    <circle cx="160" cy="5" r="3" fill="#f5c518"/>
+    <line x1="180" y1="5" x2="320" y2="5" stroke="#f5c518" stroke-width="1"/>
+  </svg>
+</div>
+
+<div class="entries">
+
+  <div class="entry">
+    <span class="entry-date">2025.06.08</span>
+    <span class="entry-text">このサイトを作った。ゴッホへの愛が溢れて止まらないので、置き場所が必要だった。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.06.05</span>
+    <span class="entry-text">『星月夜』を30分眺めた。渦の中心が毎回違う場所に見える。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.05.28</span>
+    <span class="entry-text">ひまわりの黄色を真似て描いてみたが、全然違う。ゴッホの黄色は震えている。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.05.20</span>
+    <span class="entry-text">テオへの手紙を読んでいる。「絵を描くのは呼吸するようなものだ」という一節で泣いた。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.05.14</span>
+    <span class="entry-text">アルルの黄色い家の写真を見た。今はもうない。戦争で壊れたらしい。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.05.08</span>
+    <span class="entry-text">『カラスのいる麦畑』は本当に最後の作品なのか、諸説あるらしい。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.04.30</span>
+    <span class="entry-text">糸杉の絵が好きだ。炎みたいに燃えている。あれで静物画というのが不思議。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.04.22</span>
+    <span class="entry-text">ゴッホが浮世絵を集めていたのを知って、なんか嬉しくなった。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.04.15</span>
+    <span class="entry-text">『夜のカフェテラス』の青と黄のコントラストが忘れられない。現地に行ってみたい。</span>
+  </div>
+
+  <div class="entry">
+    <span class="entry-date">2025.04.07</span>
+    <span class="entry-text">ゴッホは生前に売れた絵が一枚だけだったという。それでも描き続けた。すごい。</span>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">Home</a> &ensp;/&ensp;
+    <a href="gallery.html">Gallery</a> &ensp;/&ensp;
+    <a href="about.html">About</a>
+  </p>
+</footer>
+
+</body>
+</html>
