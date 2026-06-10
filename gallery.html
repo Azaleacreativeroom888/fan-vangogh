@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Starry Obsession</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #000066;
+      --yellow: #f5c518;
+      --yellow-warm: #f0a500;
+      --text-light: #e8e0c8;
+      --text-dim: #a09070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text-light);
+      font-family: 'Noto Serif JP', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, rgba(0,0,80,0.97), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--yellow);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--yellow); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .page-header p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .page-header .note {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+      letter-spacing: 0.05em;
+    }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      margin: 0.5rem 0 3.5rem;
+      opacity: 0.3;
+    }
+
+    .divider svg { width: 320px; }
+
+    /* GRID */
+    .gallery-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* CARD */
+    .art-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(245,197,24,0.15);
+      background: rgba(0,0,80,0.4);
+      transition: border-color 0.35s, transform 0.35s;
+      cursor: pointer;
+    }
+
+    .art-card:hover {
+      border-color: rgba(245,197,24,0.55);
+      transform: translateY(-4px);
+    }
+
+    .art-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s;
+      filter: brightness(0.92) saturate(1.1);
+    }
+
+    .art-card:hover img {
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1.2);
+    }
+
+    /* placeholder when no image */
+    .art-card .placeholder {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #000055, #00008a);
+      color: rgba(245,197,24,0.25);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    .art-info {
+      padding: 0.9rem 1rem 1rem;
+      border-top: 1px solid rgba(245,197,24,0.1);
+    }
+
+    .art-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .art-meta {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,40,0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 780px;
+      width: 100%;
+      animation: lb-in 0.3s ease;
+    }
+
+    @keyframes lb-in {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .lightbox-inner img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      border: 1px solid rgba(245,197,24,0.2);
+    }
+
+    .lightbox-inner .placeholder-lb {
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #000055, #00008a);
+      border: 1px solid rgba(245,197,24,0.2);
+      color: rgba(245,197,24,0.3);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    .lightbox-caption {
+      padding: 1rem 0.5rem 0;
+    }
+
+    .lightbox-caption h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .lightbox-caption p {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -2rem; right: 0;
+      background: none;
+      border: none;
+      color: var(--yellow);
+      font-size: 1.5rem;
+      cursor: pointer;
+      font-family: 'IM Fell English', serif;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-close:hover { opacity: 0.6; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(245,197,24,0.12);
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: var(--yellow); }
+
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Starry Obsession</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p>MY ILLUSTRATIONS</p>
+  <h1>Gallery</h1>
+  <p class="note">ゴッホに影響を受けた、自分なりの解釈で描いたイラストたち。</p>
+</div>
+
+<div class="divider">
+  <svg viewBox="0 0 320 10" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="5" x2="140" y2="5" stroke="#f5c518" stroke-width="1"/>
+    <circle cx="160" cy="5" r="3" fill="#f5c518"/>
+    <line x1="180" y1="5" x2="320" y2="5" stroke="#f5c518" stroke-width="1"/>
+  </svg>
+</div>
+
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="gallery-grid">
+
+    <!-- ① 画像がある場合は src="画像ファイル名" を入れてください -->
+    <!-- ② 画像がない枠は placeholder のまま表示されます -->
+
+    <div class="art-card" onclick="openLightbox(0)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">渦巻く夜</div>
+        <div class="art-meta">2025.06 &ensp;／&ensp; 星月夜をイメージ</div>
+      </div>
+    </div>
+
+    <div class="art-card" onclick="openLightbox(1)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">黄色い部屋</div>
+        <div class="art-meta">2025.05 &ensp;／&ensp; アルルの寝室より</div>
+      </div>
+    </div>
+
+    <div class="art-card" onclick="openLightbox(2)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">炎の樹</div>
+        <div class="art-meta">2025.05 &ensp;／&ensp; 糸杉を描く</div>
+      </div>
+    </div>
+
+    <div class="art-card" onclick="openLightbox(3)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">夜のカフェ</div>
+        <div class="art-meta">2025.04 &ensp;／&ensp; 夜のカフェテラスより</div>
+      </div>
+    </div>
+
+    <div class="art-card" onclick="openLightbox(4)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">ひまわり習作</div>
+        <div class="art-meta">2025.04 &ensp;／&ensp; 向日葵シリーズを模して</div>
+      </div>
+    </div>
+
+    <div class="art-card" onclick="openLightbox(5)">
+      <div class="placeholder">no image yet</div>
+      <div class="art-info">
+        <div class="art-title">麦畑のカラス</div>
+        <div class="art-meta">2025.03 &ensp;／&ensp; 最後の作品への敬意</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕ close</button>
+    <div id="lb-img-wrap"></div>
+    <div class="lightbox-caption">
+      <h2 id="lb-title"></h2>
+      <p id="lb-meta"></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">Home</a> &ensp;/&ensp;
+    <a href="blog.html">Blog</a> &ensp;/&ensp;
+    <a href="about.html">About</a>
+  </p>
+</footer>
+
+<script>
+  // 画像を追加する場合はここの src を変更してください
+  // src: '' のままにすると placeholder 表示になります
+  const works = [
+    { src: '', title: '渦巻く夜',     meta: '2025.06　星月夜をイメージして描いた一枚。渦の形がなかなか決まらなかった。' },
+    { src: '', title: '黄色い部屋',   meta: '2025.05　アルルの寝室。あの独特な遠近感を自分なりに解釈。' },
+    { src: '', title: '炎の樹',       meta: '2025.05　糸杉。炎のような形を表現しようとした。' },
+    { src: '', title: '夜のカフェ',   meta: '2025.04　夜のカフェテラスの青と黄のコントラストが忘れられなくて。' },
+    { src: '', title: 'ひまわり習作', meta: '2025.04　ゴッホの黄色の「震え」を出そうとしたが、まだ全然違う。' },
+    { src: '', title: '麦畑のカラス', meta: '2025.03　最後の作品へのオマージュ。暗い空と荒れた麦。' },
+  ];
+
+  function openLightbox(i) {
+    const w = works[i];
+    const wrap = document.getElementById('lb-img-wrap');
+    if (w.src) {
+      wrap.innerHTML = `<img src="${w.src}" alt="${w.title}">`;
+    } else {
+      wrap.innerHTML = `<div class="placeholder-lb">no image yet</div>`;
+    }
+    document.getElementById('lb-title').textContent = w.title;
+    document.getElementById('lb-meta').textContent = w.meta;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close')) return;
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+</body>
+</html>
