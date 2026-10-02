@@ -272,6 +272,85 @@
 
     .lightbox-close:hover { opacity: 0.6; }
 
+    /* REPORT LINK BOX */
+    .report-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 2rem 3.5rem;
+    }
+
+    .report-label {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      color: var(--yellow-warm);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .report-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(245,197,24,0.4), transparent);
+    }
+
+    .report-link {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      background: rgba(0,0,100,0.45);
+      border: 1px solid rgba(245,197,24,0.2);
+      padding: 1.2rem 1.5rem;
+      max-width: 480px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .report-link:hover {
+      border-color: rgba(245,197,24,0.6);
+      transform: translateY(-3px);
+    }
+
+    .report-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(245,197,24,0.1);
+    }
+
+    .report-text { flex: 1; }
+
+    .report-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+
+    .report-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+    }
+
+    .report-arrow {
+      font-size: 1.1rem;
+      color: var(--yellow-warm);
+      flex-shrink: 0;
+      transition: transform 0.25s;
+    }
+
+    .report-link:hover .report-arrow { transform: translateX(4px); }
+
     /* FOOTER */
     footer {
       text-align: center;
@@ -385,6 +464,19 @@
     </div>
 
   </div>
+</div>
+
+<!-- REPORT LINK BOX -->
+<div class="report-wrap">
+  <div class="report-label">REPORT</div>
+  <a class="report-link" href="report1.html">
+    <div class="report-icon">🖼️</div>
+    <div class="report-text">
+      <div class="report-title">ゴッホ展レポ</div>
+      <div class="report-desc">実際に観に行った展覧会の記録。<br>作品の前で感じたことをそのまま。</div>
+    </div>
+    <span class="report-arrow">›</span>
+  </a>
 </div>
 
 <!-- LIGHTBOX -->
