@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゴッホ展レポ — Starry Obsession</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #000066;
+      --yellow: #f5c518;
+      --yellow-warm: #f0a500;
+      --text-light: #e8e0c8;
+      --text-dim: #a09070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text-light);
+      font-family: 'Noto Serif JP', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, rgba(0,0,80,0.97), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--yellow);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .page-header p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
+    }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      margin: 0.5rem 0 3rem;
+      opacity: 0.3;
+    }
+    .divider svg { width: 320px; }
+
+    /* ENTRIES */
+    .entries {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    /* 1件ごとのレポ */
+    .report-entry {
+      padding: 2rem 0 2.2rem;
+      border-bottom: 1px solid rgba(245,197,24,0.1);
+    }
+
+    .report-entry:last-child { border-bottom: none; }
+
+    /* 企画展タイトル枠 */
+    .entry-title-box {
+      position: relative;
+      border: 1px solid rgba(245,197,24,0.45);
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.3rem;
+      background: rgba(0,0,90,0.45);
+    }
+
+    /* 四隅装飾 */
+    .entry-title-box::before,
+    .entry-title-box::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+      border-color: var(--yellow);
+      border-style: solid;
+    }
+    .entry-title-box::before {
+      top: -2px; left: -2px;
+      border-width: 2px 0 0 2px;
+    }
+    .entry-title-box::after {
+      bottom: -2px; right: -2px;
+      border-width: 0 2px 2px 0;
+    }
+    .entry-title-box .c-tr,
+    .entry-title-box .c-bl {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-color: var(--yellow);
+      border-style: solid;
+    }
+    .entry-title-box .c-tr { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
+    .entry-title-box .c-bl { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
+
+    .entry-label {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.35rem;
+    }
+
+    .entry-exh-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
+      color: #fff;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
+      text-shadow: 0 0 20px rgba(245,197,24,0.25);
+    }
+
+    /* メタ情報（会期・場所） */
+    .entry-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem 1.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .entry-meta-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+
+    .entry-meta-key {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      color: var(--yellow-warm);
+    }
+
+    .entry-meta-val {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    /* 感想本文 */
+    .entry-body {
+      font-size: 0.92rem;
+      line-height: 2.1;
+      color: var(--text-light);
+    }
+
+    .entry-body p + p { margin-top: 0.9rem; }
+
+    /* 常設展メモ */
+    .entry-permanent {
+      margin-top: 1.1rem;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(245,197,24,0.25);
+    }
+
+    .entry-permanent-label {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.4rem;
+    }
+
+    .entry-permanent p {
+      font-size: 0.87rem;
+      line-height: 2;
+      color: var(--text-dim);
+    }
+
+    /* back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.85rem;
+      color: var(--yellow-warm);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+      letter-spacing: 0.08em;
+      margin-top: 1rem;
+    }
+    .back-link:hover { border-color: var(--yellow-warm); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(245,197,24,0.12);
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: var(--yellow); }
+
+    @media (max-width: 520px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Starry Obsession</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p>EXHIBITION REPORT</p>
+  <h1>ゴッホ展レポ</h1>
+</div>
+
+<div class="divider">
+  <svg viewBox="0 0 320 10" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="5" x2="140" y2="5" stroke="#f5c518" stroke-width="1"/>
+    <circle cx="160" cy="5" r="3" fill="#f5c518"/>
+    <line x1="180" y1="5" x2="320" y2="5" stroke="#f5c518" stroke-width="1"/>
+  </svg>
+</div>
+
+<div class="entries">
+
+  <!-- ▼ レポ1件目 ここから -->
+  <div class="report-entry">
+    <div class="entry-title-box">
+      <div class="c-tr"></div><div class="c-bl"></div>
+      <div class="entry-label">— SPECIAL EXHIBITION —</div>
+      <div class="entry-exh-title">企画展の名前をここに</div>
+      <div class="entry-meta">
+        <div class="entry-meta-item">
+          <span class="entry-meta-key">会期</span>
+          <span class="entry-meta-val">0000年00月00日 〜 0000年00月00日</span>
+        </div>
+        <div class="entry-meta-item">
+          <span class="entry-meta-key">会場</span>
+          <span class="entry-meta-val">美術館名など &ensp;／&ensp; ○○駅</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry-body">
+      <p>企画展の感想をここに書いてください。</p>
+    </div>
+
+    <!-- 常設展を見た場合のみ残す。なければこのブロックごと削除 -->
+    <div class="entry-permanent">
+      <div class="entry-permanent-label">常設展でみつけたもの</div>
+      <p>常設展の感想をここに。</p>
+    </div>
+  </div>
+  <!-- ▲ レポ1件目 ここまで -->
+
+  <!-- ▼ レポ2件目以降はこのブロックをコピーして追加 -->
+  <!--
+  <div class="report-entry">
+    <div class="entry-title-box">
+      <div class="c-tr"></div><div class="c-bl"></div>
+      <div class="entry-label">— SPECIAL EXHIBITION —</div>
+      <div class="entry-exh-title">企画展の名前</div>
+      <div class="entry-meta">
+        <div class="entry-meta-item">
+          <span class="entry-meta-key">会期</span>
+          <span class="entry-meta-val">0000年00月00日 〜 0000年00月00日</span>
+        </div>
+        <div class="entry-meta-item">
+          <span class="entry-meta-key">会場</span>
+          <span class="entry-meta-val">美術館名 ／ ○○駅</span>
+        </div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <p>感想。</p>
+    </div>
+  </div>
+  -->
+
+  <a class="back-link" href="gallery.html">← Gallery に戻る</a>
+
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">Home</a> &ensp;/&ensp;
+    <a href="blog.html">Blog</a> &ensp;/&ensp;
+    <a href="gallery.html">Gallery</a> &ensp;/&ensp;
+    <a href="about.html">About</a>
+  </p>
+</footer>
+
+</body>
+</html>
