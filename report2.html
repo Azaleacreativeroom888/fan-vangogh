@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゴッホと関わりのある人物 — Starry Obsession</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #000066;
+      --yellow: #f5c518;
+      --yellow-warm: #f0a500;
+      --text-light: #e8e0c8;
+      --text-dim: #a09070;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--text-light);
+      font-family: 'Noto Serif JP', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: linear-gradient(to bottom, rgba(0,0,80,0.97), transparent);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.95rem;
+      color: var(--text-light);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--yellow);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .page-header .eyebrow {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      letter-spacing: 0.28em;
+      color: var(--yellow-warm);
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', 'Noto Serif JP', serif;
+      font-style: italic;
+      font-size: clamp(1.7rem, 5vw, 3rem);
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .page-header .note {
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+      letter-spacing: 0.05em;
+    }
+
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      margin: 0.5rem 0 3rem;
+      opacity: 0.3;
+    }
+    .divider svg { width: 320px; }
+
+    /* LIST */
+    .people {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .person {
+      position: relative;
+      background: rgba(0,0,100,0.4);
+      border: 1px solid rgba(245,197,24,0.18);
+      padding: 1.5rem 1.7rem 1.6rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .person:hover {
+      border-color: rgba(245,197,24,0.5);
+      transform: translateY(-2px);
+    }
+
+    .person-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      padding-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(245,197,24,0.15);
+    }
+
+    .person-name {
+      font-family: 'Playfair Display', 'Noto Serif JP', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      letter-spacing: 0.03em;
+    }
+
+    .person-en {
+      display: block;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--yellow-warm);
+      margin-top: 0.2rem;
+    }
+
+    .person-death {
+      font-family: 'IM Fell English', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--yellow);
+      border: 1px solid rgba(245,197,24,0.4);
+      padding: 0.2rem 0.8rem;
+      white-space: nowrap;
+    }
+
+    .person-death span {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--yellow-warm);
+      margin-right: 0.4rem;
+    }
+
+    .person-desc {
+      font-size: 0.88rem;
+      line-height: 2;
+      color: var(--text-light);
+    }
+
+    /* BACK LINK */
+    .back-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.85rem;
+      color: var(--yellow-warm);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+      letter-spacing: 0.08em;
+    }
+    .back-link:hover { border-color: var(--yellow-warm); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(245,197,24,0.12);
+    }
+
+    footer p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover { color: var(--yellow); }
+
+    @media (max-width: 520px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .person { padding: 1.2rem 1.2rem 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Starry Obsession</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="eyebrow">PEOPLE AROUND VINCENT</p>
+  <h1>ゴッホと関わりのある人物</h1>
+  <p class="note">家族、友人、画家仲間、ゴッホを支えた人たち。</p>
+</div>
+
+<div class="divider">
+  <svg viewBox="0 0 320 10" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="5" x2="140" y2="5" stroke="#f5c518" stroke-width="1"/>
+    <circle cx="160" cy="5" r="3" fill="#f5c518"/>
+    <line x1="180" y1="5" x2="320" y2="5" stroke="#f5c518" stroke-width="1"/>
+  </svg>
+</div>
+
+<div class="people">
+
+  <!-- ▼ 1人分はこのブロック。コピーして追加してください -->
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">テオ・ファン・ゴッホ<span class="person-en">THEO VAN GOGH</span></div>
+      <div class="person-death"><span>没年</span>1891</div>
+    </div>
+    <p class="person-desc">
+      ゴッホの弟で、画商。生涯にわたってゴッホを経済的にも精神的にも支え続けた最大の理解者。
+      ゴッホが彼に宛てた膨大な手紙は、いまもゴッホを知るための最重要資料になっている。
+      ゴッホの死からわずか半年後に世を去った。
+    </p>
+  </div>
+  <!-- ▲ ここまで -->
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">ポール・ゴーガン<span class="person-en">PAUL GAUGUIN</span></div>
+      <div class="person-death"><span>没年</span>1903</div>
+    </div>
+    <p class="person-desc">
+      フランスの画家。1888年の秋、アルルの「黄色い家」でゴッホと共同生活を送った。
+      二人の関係は激しい衝突で終わり、ゴッホが自分の耳を傷つける事件につながったとされる。
+      のちにタヒチやマルキーズ諸島に渡り、その地で亡くなった。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">ヨハンナ・ファン・ゴッホ＝ボンゲル<span class="person-en">JOHANNA VAN GOGH-BONGER</span></div>
+      <div class="person-death"><span>没年</span>1925</div>
+    </div>
+    <p class="person-desc">
+      テオの妻。夫とゴッホが相次いで亡くなったあと、残された作品と手紙を守り、
+      展覧会や書簡集の出版を通じてゴッホの名を世に広めた。
+      いまのゴッホの評価があるのは、彼女の働きなしには語れない。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">ポール・ガシェ<span class="person-en">DR. PAUL GACHET</span></div>
+      <div class="person-death"><span>没年</span>1909</div>
+    </div>
+    <p class="person-desc">
+      オーヴェル＝シュル＝オワーズの医師で、芸術にも理解が深かった。
+      晩年のゴッホを診察し、その肖像画『ガシェ博士の肖像』が描かれた。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">ジョゼフ・ルーラン<span class="person-en">JOSEPH ROULIN</span></div>
+      <div class="person-death"><span>没年</span>1903</div>
+    </div>
+    <p class="person-desc">
+      アルルの郵便配達人で、ゴッホの親しい友人。本人だけでなく家族もモデルになり、
+      『郵便配達人ジョゼフ・ルーランの肖像』などの連作が生まれた。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">アントン・マウフェ<span class="person-en">ANTON MAUVE</span></div>
+      <div class="person-death"><span>没年</span>1888</div>
+    </div>
+    <p class="person-desc">
+      オランダのハーグ派の画家で、ゴッホの親戚。画家を志したばかりのゴッホに
+      水彩や油彩の基礎を教えた、最初の師のような存在。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">エミール・ベルナール<span class="person-en">ÉMILE BERNARD</span></div>
+      <div class="person-death"><span>没年</span>1941</div>
+    </div>
+    <p class="person-desc">
+      ゴッホより15歳ほど年下のフランスの画家。パリで出会って以来、
+      手紙で作品や芸術について語り合う仲になった。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">アンリ・ド・トゥールーズ＝ロートレック<span class="person-en">HENRI DE TOULOUSE-LAUTREC</span></div>
+      <div class="person-death"><span>没年</span>1901</div>
+    </div>
+    <p class="person-desc">
+      パリ時代のゴッホが親しく交流した画家の一人。
+      ロートレックが描いたゴッホの肖像画も残っている。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">カミーユ・ピサロ<span class="person-en">CAMILLE PISSARRO</span></div>
+      <div class="person-death"><span>没年</span>1903</div>
+    </div>
+    <p class="person-desc">
+      印象派の画家。パリでゴッホと出会い、その色彩に影響を与えた。
+      ゴッホが最後を過ごすオーヴェルにガシェ博士がいることを勧めたとも伝えられる。
+    </p>
+  </div>
+
+  <div class="person">
+    <div class="person-head">
+      <div class="person-name">シアン（クリスティーヌ・ホールニク）<span class="person-en">SIEN HOORNIK</span></div>
+      <div class="person-death"><span>没年</span>1904</div>
+    </div>
+    <p class="person-desc">
+      ハーグ時代のゴッホが出会い、一時期一緒に暮らした女性。
+      モデルとしても何点もの素描に描かれている。
+    </p>
+  </div>
+
+</div>
+
+<div class="back-wrap">
+  <a class="back-link" href="gallery.html">← Gallery に戻る</a>
+</div>
+
+<footer>
+  <p>
+    <a href="index.html">Home</a> &ensp;/&ensp;
+    <a href="blog.html">Blog</a> &ensp;/&ensp;
+    <a href="gallery.html">Gallery</a> &ensp;/&ensp;
+    <a href="about.html">About</a>
+  </p>
+</footer>
+
+</body>
+</html>
